@@ -1,0 +1,165 @@
+name: "global-trade-network"
+
+x-type: "hlfv1"
+x-loggingLevel: info
+
+description: "The network to be in if you want to stay in the global trade business"
+
+version: 1.0.0
+
+client:
+
+  organization: 23a50bdc967535c209dd081bc2eebc3e657b274a
+
+  logging:
+    level: info
+
+  peer:
+    timeout:
+      connection: 10s
+      queryResponse: 45s
+      executeTxResponse: 120s
+  eventService:
+    timeout:
+      connection: 10s
+      registrationResponse: 50s
+  orderer:
+    timeout:
+      connection: 10s
+      response: 45s
+
+  cryptoconfig:
+    path: /opt/gopath/src/github.com/hyperledger/fabric
+
+  credentialStore:
+    path: "/tmp/hfc-kvs"
+
+    cryptoStore:
+      path: /tmp/msp
+
+    wallet: wallet-name
+
+  BCCSP:
+    security:
+     enabled: true
+     default:
+      provider: "SW"
+     hashAlgorithm: "SHA2"
+     softVerify: true
+     ephemeral: false
+     level: 256
+
+channels:
+  
+  channel:
+    orderers:
+      
+      - orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-0.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local
+      
+      - orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-1.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local
+      
+    peers:
+      
+      peer-23a50bdc967535c209dd081bc2eebc3e657b274a-0.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30605:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-23a50bdc967535c209dd081bc2eebc3e657b274a-1.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30606:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+    chaincodes:
+      - chaincode:2.0
+  
+organizations:
+  
+  23a50bdc967535c209dd081bc2eebc3e657b274a:
+    mspid: 23a50bdc967535c209dd081bc2eebc3e657b274aMSP
+
+    cryptoPath:  D:/code/huawei/blockchain/javasdkdemo/config/23a50bdc967535c209dd081bc2eebc3e657b274a.peer/msp
+    tlsCryptoKeyPath: D:/code/huawei/blockchain/javasdkdemo/config/23a50bdc967535c209dd081bc2eebc3e657b274a.peer/tls/server.key
+    tlsCryptoCertPath: D:/code/huawei/blockchain/javasdkdemo/config/23a50bdc967535c209dd081bc2eebc3e657b274a.peer/tls/server.crt
+
+    peers:
+      
+      - peer-23a50bdc967535c209dd081bc2eebc3e657b274a-0.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30605
+      
+      - peer-23a50bdc967535c209dd081bc2eebc3e657b274a-1.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30606
+      
+    certificateAuthorities:
+      - ca-org1
+  
+  ordererorg:
+      mspID: "cacd9fb14737e2c46927351b08b32fa5382a6c1dMSP"
+
+      cryptoPath: D:/code/huawei/blockchain/javasdkdemo/config/cacd9fb14737e2c46927351b08b32fa5382a6c1d.orderer/msp
+orderer-eip: 121.36.156.108
+orderers:
+  
+  orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-0.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local:
+    url: grpcs://121.36.156.108:30805
+
+    grpcOptions:
+      ssl-target-name-override: orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-0.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local
+      grpc-max-send-message-length: 15
+
+    tlsCACerts:
+      path: D:/code/huawei/blockchain/javasdkdemo/config/cacd9fb14737e2c46927351b08b32fa5382a6c1d.orderer/msp/tlscacerts/tlsca.cacd9fb14737e2c46927351b08b32fa5382a6c1d-cert.pem
+  
+  orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-1.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local:
+    url: grpcs://121.36.156.108:30806
+
+    grpcOptions:
+      ssl-target-name-override: orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-1.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local
+      grpc-max-send-message-length: 15
+
+    tlsCACerts:
+      path: D:/code/huawei/blockchain/javasdkdemo/config/cacd9fb14737e2c46927351b08b32fa5382a6c1d.orderer/msp/tlscacerts/tlsca.cacd9fb14737e2c46927351b08b32fa5382a6c1d-cert.pem
+  
+peers:
+  
+  
+  peer-23a50bdc967535c209dd081bc2eebc3e657b274a-0.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30605:
+  
+    
+    url: grpcs://121.36.156.108:30605
+    
+    grpcOptions:
+      ssl-target-name-override: peer-23a50bdc967535c209dd081bc2eebc3e657b274a-0.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: D:/code/huawei/blockchain/javasdkdemo/config/23a50bdc967535c209dd081bc2eebc3e657b274a.peer/msp/tlscacerts/tlsca.23a50bdc967535c209dd081bc2eebc3e657b274a-cert.pem
+  
+  
+  peer-23a50bdc967535c209dd081bc2eebc3e657b274a-1.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local:30606:
+  
+    
+    url: grpcs://121.36.156.108:30606
+    
+    grpcOptions:
+      ssl-target-name-override: peer-23a50bdc967535c209dd081bc2eebc3e657b274a-1.peer-23a50bdc967535c209dd081bc2eebc3e657b274a.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: D:/code/huawei/blockchain/javasdkdemo/config/23a50bdc967535c209dd081bc2eebc3e657b274a.peer/msp/tlscacerts/tlsca.23a50bdc967535c209dd081bc2eebc3e657b274a-cert.pem
+  
+certificateAuthorities:
+  ca-org1:
+    url: https://ca_peerOrg1:7054
+    httpOptions:
+      verify: true
+    tlsCACerts:
+      path: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/ca_root.pem
+      client:
+       keyfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client-key.pem
+       certfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client.pem
+
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca-org1

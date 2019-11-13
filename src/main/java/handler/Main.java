@@ -13,7 +13,7 @@ public class Main {
 	
     public static void main(String args[]) throws Exception {
     	FabricHelper helper = FabricHelper.getInstance();
-    	helper.setConfigCtx("E:/yourdir/huawei.yaml");
+    	helper.setConfigCtx("D:/code/huawei/blockchain/javasdkdemo/config/bcs-plkt4x-channel-sdk-config.yaml");
     	LoopInvoke(1);
     	//StartMultiTask(1,1);
     }
@@ -21,7 +21,7 @@ public class Main {
     public static void LoopInvoke(int loop) throws Exception{
     	FabricHelper helper = FabricHelper.getInstance();
     	for (int i=0; i<loop;i++){
-        	helper.invokeBlockchain("invoke", new String[]{"a","b","100"});
+        	helper.invokeBlockchain("invoke", new String[]{"b","a","500"});
         	String a=helper.queryBlockchain("query", new String[]{"a"});
         	String b=helper.queryBlockchain("query", new String[]{"b"});
         	logger.info("after invoke  a=" + a +", invoke b=" + b);
