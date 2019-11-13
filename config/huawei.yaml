@@ -1,0 +1,136 @@
+name: "global-trade-network"
+
+x-type: "hlfv1"
+x-loggingLevel: info
+
+description: "The network to be in if you want to stay in the global trade business"
+
+version: 1.0.0
+
+client:
+
+  organization: d8e970ada31a42d8372b6b49e1a91b378388f260
+
+  logging:
+    level: info
+
+  peer:
+    timeout:
+      connection: 10s
+      queryResponse: 45s
+      executeTxResponse: 120s
+  eventService:
+    timeout:
+      connection: 10s
+      registrationResponse: 50s
+  orderer:
+    timeout:
+      connection: 10s
+      response: 45s
+
+  cryptoconfig:
+    path: /opt/gopath/src/github.com/hyperledger/fabric
+
+  credentialStore:
+    path: "/tmp/hfc-kvs"
+
+    cryptoStore:
+      path: /tmp/msp
+
+    wallet: wallet-name
+
+  BCCSP:
+    security:
+     enabled: true
+     default:
+      provider: "SW"
+     hashAlgorithm: "SHA2"
+     softVerify: true
+     ephemeral: false
+     level: 256
+
+channels:
+  
+  channel1:
+    orderers:
+      
+      - orderer-acdf203d28725dde30074d60af3da78a4428024a-0.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local
+      
+    peers:
+      
+      peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+    chaincodes:
+      - haoccc:1.0
+  
+organizations:
+  
+  d8e970ada31a42d8372b6b49e1a91b378388f260:
+    mspid: d8e970ada31a42d8372b6b49e1a91b378388f260MSP
+    cryptoPath:  /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/msp
+    tlsCryptoKeyPath: /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/tls/server.key
+    tlsCryptoCertPath: /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/tls/server.crt
+
+    peers:
+      - peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local
+      
+    certificateAuthorities:
+      - ca-org1
+
+    adminPrivateKey:
+      path: /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/msp/keystore/e6494607-8227-1aa4-8da1-4eb6dc5cabdb_sk
+    signedCert:
+      path: /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/msp/signcerts/Admin@d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local-cert.pem
+  
+    ordererorg:
+      mspID: "acdf203d28725dde30074d60af3da78a4428024aMSP"
+      cryptoPath: /opt/config/acdf203d28725dde30074d60af3da78a4428024a.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local/msp
+#orderer eip: 10.154.116.211
+orderers:
+  
+  orderer-acdf203d28725dde30074d60af3da78a4428024a-0.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local:
+    url: grpcs://orderer-acdf203d28725dde30074d60af3da78a4428024a-0.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local:30805
+
+    grpcOptions:
+      ssl-target-name-override: orderer-acdf203d28725dde30074d60af3da78a4428024a-0.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local
+      grpc-max-send-message-length: 15
+      sslProvider: openSSL
+      negotiationType: TLS
+    tlsCACerts:
+      path: /opt/config/acdf203d28725dde30074d60af3da78a4428024a.orderer-acdf203d28725dde30074d60af3da78a4428024a.default.svc.cluster.local/msp/tlscacerts/tlsca.acdf203d28725dde30074d60af3da78a4428024a-cert.pem
+  
+#peer eip: 10.154.116.211
+peers:
+  
+  peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local:
+    url: grpcs://peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local:30610
+
+    eventUrl: grpcs://peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local:30710
+
+    grpcOptions:
+      ssl-target-name-override: peer-d8e970ada31a42d8372b6b49e1a91b378388f260-0.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+      sslProvider: openSSL
+      negotiationType: TLS
+    tlsCACerts:
+      path: /opt/config/d8e970ada31a42d8372b6b49e1a91b378388f260.peer-d8e970ada31a42d8372b6b49e1a91b378388f260.default.svc.cluster.local/msp/tlscacerts/tlsca.d8e970ada31a42d8372b6b49e1a91b378388f260-cert.pem
+  
+certificateAuthorities:
+  ca-org1:
+    url: https://ca_peerOrg1:7054
+    httpOptions:
+      verify: true
+    tlsCACerts:
+      path: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/ca_root.pem
+      client:
+       keyfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client-key.pem
+       certfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client.pem
+
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca-org1
