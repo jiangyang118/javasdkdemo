@@ -13,9 +13,9 @@ public class Main {
 	public static void main(String args[]) throws Exception {
 		FabricHelper helper = FabricHelper.getInstance();
 		helper.setConfigCtx("D:/code/huawei/blockchain/javasdkdemo/config/bcs-plkt4x-fabcar-sdk-config.yaml");
-//		LoopInvoke(1);
+		LoopInvoke(1);
 		// StartMultiTask(1,1);
-		invokeFabcar();
+//		invokeFabcar();
 	}
 
 	public static void LoopInvoke(int loop) throws Exception {

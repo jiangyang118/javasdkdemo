@@ -51,7 +51,7 @@ client:
 
 channels:
   
-  channel:
+  fabcar:
     orderers:
       
       - orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-0.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local

@@ -51,7 +51,7 @@ client:
 
 channels:
   
-  fabcar:
+  channel:
     orderers:
       
       - orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d-0.orderer-cacd9fb14737e2c46927351b08b32fa5382a6c1d.default.svc.cluster.local
@@ -85,7 +85,7 @@ channels:
         eventSource: true
       
     chaincodes:
-      - fabcarnew:2.0
+      - chaincode:2.0
   
 organizations:
   
